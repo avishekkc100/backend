@@ -51,7 +51,7 @@ const UserSchema = new mongoose.Schema({
 
 //bcrypt concept used 
 UserSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+    if(!this.isModified("password")) return next;
     this.password = await bcrypt.hash(this.password,10);
     next;
 })
@@ -79,7 +79,7 @@ UserSchema.methods.generateAccessToken = function(){
     )
 }
 
-UserSchema.methods.generateAccessToken = function(){
+UserSchema.methods.generateRefreshedToken = function(){
     return jwt.sign(
         {
             //payload
